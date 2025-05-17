@@ -40,11 +40,11 @@ Data Exploration: Data visualization to identify recurrent cards and themes.
 ## 📷 Screenshots
 | Create Reading | Select Cards UI |
 |-----------|-----------|
-| ![Create Reading](screenshots/create-reading.jpeg) | ![Select Cards UI](screenshots/select-cards-ui.jpg) |
+| ![Create Reading](screenshots/sc-001.jpg) | ![Select Cards UI](screenshots/sc-002.jpg) |
 
 | Add Notes | Cards List |
 |-----------|-----------|
-| ![Add Notes](screenshots/notes.jpeg) | ![Cards List](screenshots/card-selection.jpeg) |
+| ![Add Notes](screenshots/sc-003.jpg) | ![Cards List](screenshots/sc-004.jpg) |
 
 
 ## 🛠️ Technologies Used
