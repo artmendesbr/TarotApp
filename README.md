@@ -15,6 +15,47 @@ This app allows users to log tarot readings, track the cards drawn, and review p
 
 ---
 
+## 🔧 How It Works
+1. Start a Reading
+Reader selects the reading session details (reader, querent, spread type, question).
+
+A new reading record is created in the readings table.
+
+2. Select Cards for the Spread
+Based on the selected spread, positions (e.g., Past, Present, Future) are populated.
+
+For each position, the user selects a card from the available tarot deck.
+
+The app logs this card selection in the card_logs table, along with the position, reversed status, and any notes.
+
+3. Spread Notes
+The reading can have a global note which is stored in the readings table.
+
+
+## 🚀 Future Enhancements
+Review Past Readings: Past readings will be accessible for review, allowing users to filter and analyze past tarot readings.
+
+Data Exploration: Data visualization to identify recurrent cards and themes.
+
+## 📷 Screenshots
+| Create Reading | Select Cards UI |
+|-----------|-----------|
+| ![Create Reading](screenshots/create-reading.jpeg) | ![Select Cards UI](screenshots/select-cards-ui.jpg) |
+
+| Add Notes | Cards List |
+|-----------|-----------|
+| ![Add Notes](screenshots/notes.jpeg) | ![Cards List](screenshots/card-selection.jpeg) |
+
+
+## 🛠️ Technologies Used
+Appsmith: Used for building the front-end UI with drag-and-drop components and custom logic.
+
+PostgreSQL: For the relational database, hosted on Neon, to store readings, cards, and logs.
+
+Neon: Cloud hosting for PostgreSQL databases.
+
+---
+
 ## 🗃️ Database Schema
 
 The app is powered by a PostgreSQL database hosted on Neon. Here's an overview of the schema:
@@ -75,43 +116,3 @@ CREATE TABLE card_logs (
     CONSTRAINT fk_card FOREIGN KEY (card_id) REFERENCES public.cards(id) ON DELETE CASCADE
 );
 ```
-
-## 🔧 How It Works
-1. Start a Reading
-Reader selects the reading session details (reader, querent, spread type, question).
-
-A new reading record is created in the readings table.
-
-2. Select Cards for the Spread
-Based on the selected spread, positions (e.g., Past, Present, Future) are populated.
-
-For each position, the user selects a card from the available tarot deck.
-
-The app logs this card selection in the card_logs table, along with the position, reversed status, and any notes.
-
-3. Spread Notes
-The reading can have a global note which is stored in the readings table.
-
-4. 
-
-## 🚀 Future Enhancements
-Review Past Readings: Past readings will be accessible for review, allowing users to filter and analyze past tarot readings.
-
-Data Exploration: Data visualization to identify recurrent cards and themes.
-
-## 📷 Screenshots
-| Create Reading | Select Cards UI |
-|-----------|-----------|
-| ![Home](screenshots/sc-001.jpg) | ![Routine/Exercise](screenshots/sc-002.jpg) |
-
-| Add Notes | Select Cards |
-|-----------|-----------|
-| ![Log](screenshots/sc-003.jpg) | ![History](screenshots/sc-004.jpg) |
-
-
-## 🛠️ Technologies Used
-Appsmith: Used for building the front-end UI with drag-and-drop components and custom logic.
-
-PostgreSQL: For the relational database, hosted on Neon, to store readings, cards, and logs.
-
-Neon: Cloud hosting for PostgreSQL databases.
