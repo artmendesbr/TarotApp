@@ -1,67 +1,73 @@
 # TarotApp 🃏 - The Tarot Reading Journal
 
-A tarot reading tracker and journal built with [Appsmith](https://www.appsmith.com/) and hosted on [Neon](https://neon.tech/).  
-This app allows users to log tarot readings, track the cards drawn, and review past readings.
+A creative, interactive tarot reading tracker and journal built with [Appsmith](https://www.appsmith.com/) for the frontend and hosted on [Neon](https://neon.tech/) for backend database management.  
+This app empowers users to log detailed tarot readings, track cards drawn, and analyze past readings for deep insights. The goal is not only to capture each reading but also to provide data-driven insights into patterns and recurring themes.
 
 ---
 
 ## 📌 Features
 
-- **Create a Reading**: Choose a reader, querent, spread type, and enter a question.
-- **Card Logging**: For each spread, log each card drawn with its position, whether it's reversed, and add notes.
-- **Custom Spreads**: Define custom spreads with labels (e.g., Past, Present, Future).
-- **Spread Notes**: Add a spread note for the entire reading.
-- **Review Past Readings**: View and analyze past readings with the ability to filter by querent, reader, or spread.
+- **Create a Reading**: Select a reader, querent, spread type, and enter a question.
+- **Card Logging**: Log each card drawn for a selected spread, including position (e.g., Past, Present, Future), reversed status, and add notes for each card.
+- **Custom Spreads**: Create custom tarot spreads with flexible labels and define unique card positions.
+- **Spread Notes**: Add a general note to the entire reading to capture the reader’s overall impression.
+- **Review Past Readings**: Easily view, search, and filter past readings by querent, reader, spread, or card to uncover patterns and insights.
+- **Advanced Data Visualization** (Future Feature): Use data analytics to identify recurring themes, dominant cards, and track the querent's tarot journey over time.
 
 ---
 
 ## 🔧 How It Works
-1. Start a Reading
-Reader selects the reading session details (reader, querent, spread type, question).
 
-A new reading record is created in the readings table.
+### 1. **Start a Reading**
+   - **Reader** selects key session details such as the reader, querent, spread type, and question.
+   - A new **reading record** is created in the `readings` table, capturing all session-specific information, including time and date.
 
-2. Select Cards for the Spread
-Based on the selected spread, positions (e.g., Past, Present, Future) are populated.
+### 2. **Select Cards for the Spread**
+   - Based on the chosen **spread**, positions (e.g., Past, Present, Future) are pre-populated with custom labels.
+   - For each position, the user selects a **card** from the tarot deck, which is then logged in the **`card_logs` table** along with the card’s **position**, **reversed** status, and **personal notes**.
 
-For each position, the user selects a card from the available tarot deck.
+### 3. **Spread Notes**
+   - A **global note** can be added to the entire reading, offering the reader a chance to reflect on the general energy or overarching theme of the session. This note is stored in the **`readings` table** for easy access later.
 
-The app logs this card selection in the card_logs table, along with the position, reversed status, and any notes.
-
-3. Spread Notes
-The reading can have a global note which is stored in the readings table.
-
+### 4. **Review Past Readings**
+   - Users can view their **past readings**, filterable by querent, reader, spread, or even specific cards, allowing them to reflect on previous sessions and track evolving themes.
+   
+---
 
 ## 🚀 Future Enhancements
-Review Past Readings: Past readings will be accessible for review, allowing users to filter and analyze past tarot readings.
 
-Data Exploration: Data visualization to identify recurrent cards and themes.
+- **Data Exploration**: Enable deeper analysis with interactive **data visualizations**. Explore card frequency, connections between spread types and querents, and gain insights into the evolution of readings over time.
+- **Predictive Insights**: Add features for **predicting future trends** in a querent’s readings based on historical patterns and card combinations.
+- **Advanced Filters**: Implement more granular filtering for queries such as "show all readings with 'The Fool' in the Past position" or "show all readings that included reversed cards."
+
+---
 
 ## 📷 Screenshots
+
 | Create Reading | Select Cards UI |
-|-----------|-----------|
+|----------------|-----------------|
 | ![Create Reading](screenshots/sc-001.jpg) | ![Select Cards UI](screenshots/sc-002.jpg) |
 
 | Add Notes | Cards List |
-|-----------|-----------|
+|----------------|------------|
 | ![Add Notes](screenshots/sc-003.jpg) | ![Cards List](screenshots/sc-004.jpg) |
 
+---
 
 ## 🛠️ Technologies Used
-Appsmith: Used for building the front-end UI with drag-and-drop components and custom logic.
 
-PostgreSQL: For the relational database, hosted on Neon, to store readings, cards, and logs.
-
-Neon: Cloud hosting for PostgreSQL databases.
+- **Appsmith**: A powerful low-code platform to rapidly build front-end UIs using drag-and-drop components and integrate custom logic. Appsmith's flexibility allows me to quickly prototype and iterate on new features.
+- **PostgreSQL**: The relational database engine used to store readings, cards, and logs. PostgreSQL was chosen for its reliability, extensibility, and its support for complex queries, ensuring the app scales well as data grows.
+- **Neon**: Cloud-hosted PostgreSQL database providing seamless scaling and performance for this project.
 
 ---
 
 ## 🗃️ Database Schema
 
-The app is powered by a PostgreSQL database hosted on Neon. Here's an overview of the schema:
+This app is powered by a robust PostgreSQL database hosted on **Neon**. Below is an overview of the database schema, which leverages **foreign key constraints** for referential integrity and **timestamps** for tracking when readings and logs were created or updated. Key relationships and constraints are outlined to ensure data consistency and efficient querying.
 
 ### 1. `readings` Table
-Stores details about each tarot reading session.
+This table tracks each **tarot reading session**, linking it to the spread, reader, querent, and their question.
 
 ```sql
 CREATE TABLE readings (
@@ -78,6 +84,7 @@ CREATE TABLE readings (
     CONSTRAINT fk_querent FOREIGN KEY (querent_id) REFERENCES public.users(id)
 );
 ```
+- Foreign Keys: Links the reading to the spread, reader, and querent, ensuring referential integrity. If a spread is deleted, the related readings remain intact, but the spread_id is set to NULL
 
 ### 2. `cards` Table
 Stores individual tarot cards information
@@ -98,6 +105,8 @@ CREATE TABLE cards (
     CONSTRAINT fk_deck FOREIGN KEY (deck_id) REFERENCES public.decks(id) ON DELETE CASCADE
 );
 ```
+- Foreign Key: Ensures each card belongs to a specific deck, and when a deck is deleted, its associated cards are removed.
+
 
 ### 3. `card_logs` Table
 Logs each card drawn in a reading, including position, reversed status, and notes.
@@ -116,3 +125,16 @@ CREATE TABLE card_logs (
     CONSTRAINT fk_card FOREIGN KEY (card_id) REFERENCES public.cards(id) ON DELETE CASCADE
 );
 ```
+- Positioning: The position_index field captures the exact position of the card in the spread (e.g., Past, Present, Future), making querying and visualization of spreads more efficient.
+
+## Advanced SQL Skills & Creative Design
+- Complex Joins: The schema relies heavily on foreign key relationships and JOIN queries to retrieve data across multiple tables—like combining readings, cards, and logs for detailed insights.
+
+- JSONB: The custom_labels field in the spreads table is a JSONB column, showcasing my ability to use non-relational data within a relational database. This allows for flexible and dynamic label management in tarot spreads.
+
+- Data Integrity: Every table leverages primary keys, foreign keys, and timestamp columns for auditability and referential integrity.
+
+- Future Proofing: The schema allows for scalability, such as adding new types of spreads, deck updates, or card attributes without breaking the current structure.
+
+## 💡 Showcasing My Skills
+In this project, I have combined creative UI design with solid database architecture and advanced SQL skills. From designing a flexible, scalable database schema to crafting efficient SQL queries that ensure data integrity and speed, I've aimed to create an app that not only captures readings but also provides valuable insights for tarot enthusiasts. My use of Appsmith for the frontend, PostgreSQL for the backend, and Neon for hosting creates a reliable and scalable solution.
