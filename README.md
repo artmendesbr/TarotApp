@@ -10,7 +10,7 @@ This app empowers users to log detailed tarot readings, track cards drawn, and a
 - **Create a Reading**: Select a reader, querent, spread type, and enter a question.
 - **Card Logging**: Log each card drawn for a selected spread, including position (e.g., Past, Present, Future), reversed status, and add notes for each card.
 - **Custom Spreads**: Create custom tarot spreads with flexible labels and define unique card positions.
-- **Spread Notes**: Add a general note to the entire reading to capture the reader’s overall impression.
+- **Reading Summary**: Add a general note to the entire reading to capture the reader’s overall impression.
 - **Review Past Readings**: Easily view, search, and filter past readings by querent, reader, spread, or card to uncover patterns and insights.
 - **Advanced Data Visualization** (Future Feature): Use data analytics to identify recurring themes, dominant cards, and track the querent's tarot journey over time.
 
@@ -26,10 +26,10 @@ This app empowers users to log detailed tarot readings, track cards drawn, and a
    - Based on the chosen **spread**, positions (e.g., Past, Present, Future) are pre-populated with custom labels.
    - For each position, the user selects a **card** from the tarot deck, which is then logged in the **`card_logs` table** along with the card’s **position**, **reversed** status, and **personal notes**.
 
-### 3. **Spread Notes**
-   - A **global note** can be added to the entire reading, offering the reader a chance to reflect on the general energy or overarching theme of the session. This note is stored in the **`readings` table** for easy access later.
+### 3. **Reading Summary**
+   - A **reading note** can be added to the entire reading, offering the reader a chance to reflect on the general energy or overarching theme of the session. This note is stored in the **`readings` table** for easy access later.
 
-### 4. **Review Past Readings**
+### 4. **Review Past Readings (Planned)**
    - Users can view their **past readings**, filterable by querent, reader, spread, or even specific cards, allowing them to reflect on previous sessions and track evolving themes.
    
 ---
